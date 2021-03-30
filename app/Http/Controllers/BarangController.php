@@ -50,8 +50,13 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        //validasi request
+        
+        $request->request->add([
+            'kode_barang' => 'PRD' . str_pad(Barang::max('id_barang') + 1, 3, '0', STR_PAD_LEFT)
+        ]);
+
         $request->validate([
+            'kode_barang' => 'required',
             'nama_barang' => 'required',
             'kategori_barang' => 'required',
             'harga' => 'required|numeric',

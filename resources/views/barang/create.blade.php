@@ -19,7 +19,6 @@
                 @endif
                 <form method="post" action="{{ route('barang.store') }}" id="myForm">
                     @csrf
-                    <input type="hidden" name="kode_barang" class="form-control" id="Kode Barang" aria-describedby="Kode Barang" value="PRD003">
                     <div class="form-group">
                         <label for="Nama Barang">Nama Barang</label>
                         <input type="text" name="nama_barang" class="form-control" id="Nama Barang" aria-describedby="Nama Barang">
