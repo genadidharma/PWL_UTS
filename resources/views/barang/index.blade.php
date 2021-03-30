@@ -33,17 +33,17 @@
             <th>Jumlah</th>
             <th width="280px">Action</th>
         </tr>
-        @foreach($barangs as $barang)
+        @foreach($list_barang as $barang)
         <tr>
-            <td>{{$barang->nim}}</td>
-            <td>{{$barang->nama}}</td>
-            <td>{{$barang->kelas}}</td>
-            <td>{{$barang->jurusan}}</td>
-            <td>{{$barang->no_handphone}}</td>
+            <td>{{$barang->kode_barang}}</td>
+            <td>{{$barang->nama_barang}}</td>
+            <td>{{$barang->kategori_barang}}</td>
+            <td>{{$barang->harga}}</td>
+            <td>{{$barang->qty}}</td>
             <td>
-                <form action="{{route('barang.destroy', $barang->nim) }}" method="POST">
-                    <a class="btn btn-info" href="{{ route('barang.show', $barang->nim) }}">Show</a>
-                    <a class="btn btn-primary" href="{{ route('barang.edit', $barang->nim) }}">Edit</a>
+                <form action="{{route('barang.destroy', $barang->id_barang) }}" method="POST">
+                    <a class="btn btn-info" href="{{ route('barang.show', $barang->id_barang) }}">Show</a>
+                    <a class="btn btn-primary" href="{{ route('barang.edit', $barang->id_barang) }}">Edit</a>
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>
@@ -53,6 +53,6 @@
         @endforeach
     </table>
     <div class="d-flex">
-        {{ $barangs->links('pagination::bootstrap-4') }}
+        {{ $list_barang->links('pagination::bootstrap-4') }}
     </div>
 </div>
