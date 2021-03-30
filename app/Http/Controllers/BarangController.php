@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
@@ -13,7 +14,11 @@ class BarangController extends Controller
      */
     public function index()
     {
-        //
+        $list_barang = Barang::orderBy('id_barang', 'desc')
+        ->paginate(5);
+
+        return view('barang.index', compact('list_barang'))
+        ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -23,7 +28,7 @@ class BarangController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
