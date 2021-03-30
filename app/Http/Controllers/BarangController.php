@@ -61,7 +61,7 @@ class BarangController extends Controller
     public function show($id_barang)
     {
         $barang = Barang::find($id_barang);
-        $next = Barang::where('id_barang', '<', $id_barang)->orderBy('id_barang','desc')->first();
+        $next = Barang::where('id_barang', '<', $id_barang)->orderBy('id_barang', 'desc')->first();
         $prev = Barang::where('id_barang', '>', $id_barang)->orderBy('id_barang')->first();
         return view('barang.show', compact('barang', 'next', 'prev'));
     }
@@ -104,8 +104,9 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_barang)
     {
-        //
+        Barang::find($id_barang)->delete();
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil dihapus');
     }
 }
