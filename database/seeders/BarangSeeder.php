@@ -22,10 +22,9 @@ class BarangSeeder extends Seeder
         for ($i = 0; $i < 20; $i++) {
             $kategori = ['Makanan', 'Minuman', 'Snack', 'Rempah-rempah'];
             $kategori_rand = array_rand($kategori, 1);
-            
-            DB::table('barang')->insert([
+
+            $id = DB::table('barang')->insertGetId(
                 [
-                    'kode_barang' => 'PRD' . $faker->randomNumber(3),
                     'nama_barang' => $faker->word(),
                     'kategori_barang' => $kategori[$kategori_rand],
                     'harga' => round($faker->numberBetween(5000, 30000), -3),
@@ -33,7 +32,12 @@ class BarangSeeder extends Seeder
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ]
-            ]);
+            );
+
+            DB::table('barang')->where('id_barang', $id)
+                ->update([
+                    'kode_barang' => 'PRD' . str_pad($id, 3, '0', STR_PAD_LEFT)
+                ]);
         }
     }
 }
