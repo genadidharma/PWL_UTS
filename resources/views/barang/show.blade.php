@@ -11,7 +11,7 @@
                     <li class="list-group-item"><b>Kode Barang: </b>{{$barang->kode_barang}}</li>
                     <li class="list-group-item"><b>Nama Barang: </b>{{$barang->nama_barang}}</li>
                     <li class="list-group-item"><b>Kategori: </b>{{$barang->kategori_barang}}</li>
-                    <li class="list-group-item"><b>Harga: </b>{{$barang->harga}}</li>
+                    <li class="list-group-item"><b>Harga: </b>@currency($barang->harga)</li>
                     <li class="list-group-item"><b>Jumlah: </b>{{$barang->qty}}</li>
                 </ul>
             </div>
