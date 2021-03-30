@@ -38,7 +38,7 @@
             <td>{{$barang->kode_barang}}</td>
             <td>{{$barang->nama_barang}}</td>
             <td>{{$barang->kategori_barang}}</td>
-            <td>{{$barang->harga}}</td>
+            <td>@currency($barang->harga)</td>
             <td>{{$barang->qty}}</td>
             <td>
                 <form action="{{route('barang.destroy', $barang->id_barang) }}" method="POST">
