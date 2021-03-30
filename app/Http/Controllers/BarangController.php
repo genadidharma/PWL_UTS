@@ -15,10 +15,10 @@ class BarangController extends Controller
     public function index()
     {
         $list_barang = Barang::orderBy('id_barang', 'desc')
-        ->paginate(5);
+            ->paginate(5);
 
         return view('barang.index', compact('list_barang'))
-        ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -28,7 +28,7 @@ class BarangController extends Controller
      */
     public function create()
     {
-        
+        return view('barang.create');
     }
 
     /**
@@ -39,7 +39,17 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validasi request
+        $request->validate([
+            'nama_barang' => 'required',
+            'kategori_barang' => 'required',
+            'harga' => 'required|numeric',
+            'qty' => 'required|numeric',
+        ]);
+
+        Barang::create($request->all());
+
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil ditambahkan');
     }
 
     /**
