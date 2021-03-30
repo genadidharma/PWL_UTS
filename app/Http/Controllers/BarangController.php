@@ -58,9 +58,12 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_barang)
     {
-        //
+        $barang = Barang::find($id_barang);
+        $next = Barang::where('id_barang', '<', $id_barang)->orderBy('id_barang','desc')->first();
+        $prev = Barang::where('id_barang', '>', $id_barang)->orderBy('id_barang')->first();
+        return view('barang.show', compact('barang', 'next', 'prev'));
     }
 
     /**
@@ -69,9 +72,10 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_barang)
     {
-        //
+        $barang = Barang::find($id_barang);
+        return view('barang.edit', compact('barang'));
     }
 
     /**
@@ -81,9 +85,17 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_barang)
     {
-        //
+        $request->validate([
+            'nama_barang' => 'required',
+            'kategori_barang' => 'required',
+            'harga' => 'required|numeric',
+            'qty' => 'required|numeric',
+        ]);
+
+        Barang::find($id_barang)->update($request->all());
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil diubah');
     }
 
     /**
