@@ -53,6 +53,6 @@
         @endforeach
     </table>
     <div class="d-flex">
-        {{ $list_barang->links('pagination::bootstrap-4') }}
+        {{ $list_barang->appends(request()->query())->links('pagination::bootstrap-4') }}
     </div>
 </div>
