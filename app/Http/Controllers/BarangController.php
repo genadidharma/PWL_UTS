@@ -12,9 +12,20 @@ class BarangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $list_barang = Barang::orderBy('id_barang', 'desc')
+
+        $list_barang = Barang::where([
+            ['kode_barang', '!=', null, 'OR', 'nama_barang', '!=', null, 'OR', 'kategori_barang', '!=', null],
+            [function ($query) use ($request) {
+                if (($keyword = $request->keyword)) {
+                    $query->orWhere('kode_barang', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('nama_barang', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('kategori_barang', 'LIKE', '%' . $keyword . '%')->get();
+                }
+            }]
+        ])
+            ->orderBy('id_barang', 'desc')
             ->paginate(5);
 
         return view('barang.index', compact('list_barang'))
